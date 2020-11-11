@@ -1,0 +1,10 @@
+kumuluzee:
+  name: Upravljanje s prijavami na termine govorilnih ur
+  version: 0.3
+  env:
+    name: dev
+  datasources:
+      - jndi-name: jdbc/ConsultationsDS
+        connection-url: jdbc:postgresql://localhost:5432/consultations2
+        username: postgres
+        password: postgres
