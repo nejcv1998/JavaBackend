@@ -6,6 +6,7 @@
         <class>si.fri.prpo.Group32v1.entities.Student</class>
         <class>si.fri.prpo.Group32v1.entities.Professor</class>
         <class>si.fri.prpo.Group32v1.entities.Consultation</class>
+        <class>si.fri.prpo.Group32v1.entities.Application</class>
 
         <properties>
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>

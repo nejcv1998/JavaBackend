@@ -1,6 +1,6 @@
 kumuluzee:
   name: Upravljanje s prijavami na termine govorilnih ur
-  version: 0.3
+  version: 0.4
   env:
     name: dev
   datasources:

@@ -9,7 +9,11 @@ import java.util.List;
                 @NamedQuery(name = "Consultation.getAll",
                         query = "SELECT c FROM Consultation c"),
                 @NamedQuery(name = "Consultation.findByName",
-                        query = "SELECT c FROM Consultation c WHERE c.name = :name")
+                        query = "SELECT c FROM Consultation c WHERE c.name = :name"),
+                @NamedQuery(name = "Consultation.getUnderMax",
+                        query = "SELECT c FROM Consultation c WHERE c.maxParticipants < :max"),
+                @NamedQuery(name = "Consultation.findByProfessor",
+                        query = "SELECT c FROM Consultation c WHERE c.professor = :professor")
         })
 
 public class Consultation {
@@ -28,16 +32,15 @@ public class Consultation {
     @Column(name = "time_end")
     private String timeEnd;
 
-    @Column(name = "max_participants")
-    private int maxParticipants;
+    @Column
+    private Integer maxParticipants;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "professor_id")
     private Professor professor;
 
-    @ManyToMany
-    @JoinColumn(name = "student_list")
-    private List<Student> studentList;
+    @OneToMany(mappedBy = "consultation", cascade = CascadeType.ALL)
+    private List<Application> applicationList;
 
     //getter setter methods
 
@@ -98,11 +101,17 @@ public class Consultation {
         this.professor = professor;
     }
 
-    public List<Student> getStudentList() {
-        return studentList;
+    public List<Application> getApplicationList() {
+        return applicationList;
     }
 
-    public void setStudentList(List<Student> studentList) {
-        this.studentList = studentList;
+    public void setApplicationList(List<Application> applicationList) {
+        this.applicationList = applicationList;
+    }
+
+    @Override
+    public String toString() {
+        return "Consultation [Id: " + id + ", Name: " + name + ", Description: " + description + ", Time_start: " + timeStart + ", Time_end: " + timeEnd +
+                ", MaxParticipants: " + maxParticipants + ", Professor_id: " + professor.getId() + "]";
     }
 }

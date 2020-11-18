@@ -6,8 +6,10 @@ import java.util.List;
 @Entity
 @NamedQueries(value =
         {
-                @NamedQuery(name = "Student.getAll", query = "SELECT s FROM Student s"),
-                @NamedQuery(name = "Student.findByName", query = "SELECT s FROM Student s WHERE s.name = :name")
+                @NamedQuery(name = "Student.getAll",
+                        query = "SELECT s FROM Student s"),
+                @NamedQuery(name = "Student.findByName",
+                        query = "SELECT s FROM Student s WHERE s.name = :name")
         })
 
 public class Student {
@@ -23,9 +25,8 @@ public class Student {
     @Column(name = "user_name")
     private String userName;
 
-    @ManyToMany
-    @JoinColumn(name = "consultation_list")
-    private List<Consultation> consultationList;
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private List<Application> applicationList;
 
     public Integer getId() {
         return id;
@@ -59,12 +60,12 @@ public class Student {
         this.userName = userName;
     }
 
-    public List<Consultation> getConsultationList() {
-        return consultationList;
+    public List<Application> getApplicationList() {
+        return applicationList;
     }
 
-    public void setConsultationList(List<Consultation> consultationList) {
-        this.consultationList = consultationList;
+    public void setApplicationList(List<Application> applicationList) {
+        this.applicationList = applicationList;
     }
 
     @Override

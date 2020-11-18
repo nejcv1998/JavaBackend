@@ -1,5 +1,7 @@
 package si.fri.prpo.Group32v1.entities;
 
+import org.eclipse.persistence.jpa.jpql.tools.spi.IMappedSuperclass;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -9,7 +11,9 @@ import java.util.List;
                 @NamedQuery(name = "Professor.getAll",
                         query = "SELECT p FROM Professor p"),
                 @NamedQuery(name = "Professor.findByName",
-                        query = "SELECT p FROM Professor p WHERE p.name = :name AND p.surname = :surname")
+                        query = "SELECT p FROM Professor p WHERE p.name = :name AND p.surname = :surname"),
+                @NamedQuery(name = "Professor.findByCabinet",
+                        query = "SELECT p FROM Professor p WHERE p.cabinet = :cabinet")
         })
 
 public class Professor {
@@ -22,13 +26,12 @@ public class Professor {
 
     private String surname;
 
-    private String Cabinet;
+    private String cabinet;
 
     @Column(name = "user_name")
     private String userName;
 
-    @ManyToMany
-    @JoinColumn(name = "consultation_list")
+    @OneToMany(mappedBy = "professor", cascade = CascadeType.ALL)
     private List<Consultation> consultationList;
 
     //getter setter methods
@@ -59,11 +62,11 @@ public class Professor {
     }
 
     public String getCabinet() {
-        return Cabinet;
+        return cabinet;
     }
 
     public void setCabinet(String cabinet) {
-        Cabinet = cabinet;
+        cabinet = cabinet;
     }
 
     public String getUserName() {
@@ -80,5 +83,10 @@ public class Professor {
 
     public void setConsultationList(List<Consultation> consultationList) {
         this.consultationList = consultationList;
+    }
+
+    @Override
+    public String toString() {
+        return "Professor [Id: " + id + ", Name: " + name + ", Surname: " + surname + ", User_name: " + userName + ", Cabinet: " + cabinet + "]";
     }
 }
