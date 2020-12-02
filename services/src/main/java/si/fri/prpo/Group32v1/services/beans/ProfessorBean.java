@@ -3,6 +3,7 @@ package si.fri.prpo.Group32v1.services.beans;
 
 import si.fri.prpo.Group32v1.entities.Consultation;
 import si.fri.prpo.Group32v1.entities.Professor;
+import si.fri.prpo.Group32v1.services.annotations.CallLogger;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -37,6 +38,7 @@ public class ProfessorBean {
     @PersistenceContext(unitName = "consultations-jpa")
     private EntityManager em;
 
+    @CallLogger
     public List<Professor> getProfessors() {
         List<Professor> profs = em.createNamedQuery("Professor.getAll").getResultList();
         return profs;
@@ -54,11 +56,13 @@ public class ProfessorBean {
 
     }
 
+    @CallLogger
     public Professor getProfessorById(int professorId) {
         Professor prof = em.find(Professor.class, professorId);
         return prof;
     }
 
+    @CallLogger
     @Transactional
     public Professor addProfessor(Professor professor) {
         if (professor != null) {
@@ -68,6 +72,7 @@ public class ProfessorBean {
         return professor;
     }
 
+    @CallLogger
     @Transactional
     public Professor updateProfessor(int professorId, Professor professor) {
         Professor p = getProfessorById(professorId);
@@ -77,6 +82,7 @@ public class ProfessorBean {
         return professor;
     }
 
+    @CallLogger
     @Transactional
     public boolean removeProfessor(int professorId) {
         Professor prof = getProfessorById(professorId);

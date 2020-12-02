@@ -1,6 +1,7 @@
 package si.fri.prpo.Group32v1.services.beans;
 
 import si.fri.prpo.Group32v1.entities.Student;
+import si.fri.prpo.Group32v1.services.annotations.CallLogger;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -36,6 +37,7 @@ public class StudentBean {
     @PersistenceContext(unitName = "consultations-jpa")
     private EntityManager em;
 
+    @CallLogger
     public List<Student> getStudents() {
         List<Student> students = em.createNamedQuery("Student.getAll").getResultList();
         return students;
@@ -53,11 +55,13 @@ public class StudentBean {
 
     }
 
+    @CallLogger
     public Student getStudentById(int studentId) {
         Student student = em.find(Student.class, studentId);
         return student;
     }
 
+    @CallLogger
     @Transactional
     public Student addStudent(Student student) {
         if (student != null) {
@@ -66,6 +70,7 @@ public class StudentBean {
         return student;
     }
 
+    @CallLogger
     @Transactional
     public Student updateStudent(int studentId, Student student) {
         Student s = getStudentById(studentId);
@@ -76,6 +81,7 @@ public class StudentBean {
         return student;
     }
 
+    @CallLogger
     @Transactional
     public boolean removeStudent(int studentId) {
         Student student = getStudentById(studentId);

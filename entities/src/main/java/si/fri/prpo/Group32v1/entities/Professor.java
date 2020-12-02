@@ -2,6 +2,7 @@ package si.fri.prpo.Group32v1.entities;
 
 import org.eclipse.persistence.jpa.jpql.tools.spi.IMappedSuperclass;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.util.List;
 
@@ -31,6 +32,7 @@ public class Professor {
     @Column(name = "user_name")
     private String userName;
 
+    @JsonbTransient
     @OneToMany(mappedBy = "professor", cascade = CascadeType.ALL)
     private List<Consultation> consultationList;
 

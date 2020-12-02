@@ -3,6 +3,7 @@ package si.fri.prpo.Group32v1.services.controllers;
 import si.fri.prpo.Group32v1.entities.Application;
 import si.fri.prpo.Group32v1.entities.Consultation;
 import si.fri.prpo.Group32v1.entities.Student;
+import si.fri.prpo.Group32v1.services.annotations.CallLogger;
 import si.fri.prpo.Group32v1.services.beans.ApplicationBean;
 import si.fri.prpo.Group32v1.services.beans.ConsultationBean;
 import si.fri.prpo.Group32v1.services.beans.StudentBean;
@@ -44,6 +45,7 @@ public class ApplicationControllerBean {
         log.info("Bean destroyed: " + ApplicationControllerBean.class.getSimpleName() + " UUID: " + uid);
     }
 
+    @CallLogger
     @Transactional
     public Application createApplication(ApplicationDto applicationDto) {
         Student student = studentBean.getStudentById(applicationDto.getStudentId());

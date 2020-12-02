@@ -1,6 +1,7 @@
 package si.fri.prpo.Group32v1.services.beans;
 
 import si.fri.prpo.Group32v1.entities.Application;
+import si.fri.prpo.Group32v1.services.annotations.CallLogger;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -35,6 +36,7 @@ public class ApplicationBean {
     @PersistenceContext(unitName = "consultations-jpa")
     private EntityManager em;
 
+    @CallLogger
     public List<Application> getApplications() {
         List<Application> apps = em.createNamedQuery("Application.getAll").getResultList();
         return apps;
@@ -52,11 +54,13 @@ public class ApplicationBean {
 
     }
 
+    @CallLogger
     public Application getApplicationById(int applicationId) {
         Application application = em.find(Application.class, applicationId);
         return application;
     }
 
+    @CallLogger
     @Transactional
     public Application addApplication(Application application) {
         if (application != null) {
@@ -65,6 +69,7 @@ public class ApplicationBean {
         return application;
     }
 
+    @CallLogger
     @Transactional
     public Application updateApplication(int applicationId, Application application) {
         Application a = getApplicationById(applicationId);
@@ -75,6 +80,7 @@ public class ApplicationBean {
         return application;
     }
 
+    @CallLogger
     @Transactional
     public boolean removeApplication(int applicationId) {
         Application application = getApplicationById(applicationId);

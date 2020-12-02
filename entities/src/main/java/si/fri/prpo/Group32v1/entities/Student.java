@@ -1,5 +1,6 @@
 package si.fri.prpo.Group32v1.entities;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class Student {
     @Column(name = "user_name")
     private String userName;
 
+    @JsonbTransient
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private List<Application> applicationList;
 
