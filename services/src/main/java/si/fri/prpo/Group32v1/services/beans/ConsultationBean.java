@@ -1,6 +1,8 @@
 package si.fri.prpo.Group32v1.services.beans;
 
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.rest.utils.JPAUtils;
 import si.fri.prpo.Group32v1.entities.Application;
 import si.fri.prpo.Group32v1.entities.Consultation;
 import si.fri.prpo.Group32v1.services.annotations.CallLogger;
@@ -42,6 +44,16 @@ public class ConsultationBean {
     public List<Consultation> getConsultations() {
         List<Consultation> cons = em.createNamedQuery("Consultation.getAll").getResultList();
         return cons;
+    }
+
+    @CallLogger
+    public List<Consultation> getConsultations(QueryParameters query) {
+        return JPAUtils.queryEntities(em, Consultation.class, query);
+    }
+
+    @CallLogger
+    public Long getConsultationsCount(QueryParameters query) {
+        return JPAUtils.queryEntitiesCount(em, Consultation.class, query);
     }
 
     public List<Consultation> getConsultationsCriteriaAPI() {

@@ -5,5 +5,6 @@
 
     <interceptors>
         <class>si.fri.prpo.Group32v1.services.interceptors.CallLoggerInterceptor</class>
+        <class>si.fri.prpo.Group32v1.services.interceptors.ValidateConsultationDtoInterceptor</class>
     </interceptors>
 </beans>

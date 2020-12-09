@@ -1,6 +1,8 @@
 package si.fri.prpo.Group32v1.services.beans;
 
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.rest.utils.JPAUtils;
 import si.fri.prpo.Group32v1.entities.Consultation;
 import si.fri.prpo.Group32v1.entities.Professor;
 import si.fri.prpo.Group32v1.services.annotations.CallLogger;
@@ -42,6 +44,16 @@ public class ProfessorBean {
     public List<Professor> getProfessors() {
         List<Professor> profs = em.createNamedQuery("Professor.getAll").getResultList();
         return profs;
+    }
+
+    @CallLogger
+    public List<Professor> getProfessors(QueryParameters query) {
+        return JPAUtils.queryEntities(em, Professor.class, query);
+    }
+
+    @CallLogger
+    public Long getProfessorsCount(QueryParameters query) {
+        return JPAUtils.queryEntitiesCount(em, Professor.class, query);
     }
 
     public List<Professor> getProfessorsCriteriaAPI() {

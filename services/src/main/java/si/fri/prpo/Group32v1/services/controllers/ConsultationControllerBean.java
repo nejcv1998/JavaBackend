@@ -3,6 +3,7 @@ package si.fri.prpo.Group32v1.services.controllers;
 import si.fri.prpo.Group32v1.entities.Consultation;
 import si.fri.prpo.Group32v1.entities.Professor;
 import si.fri.prpo.Group32v1.services.annotations.CallLogger;
+import si.fri.prpo.Group32v1.services.annotations.ValidateConsultationDto;
 import si.fri.prpo.Group32v1.services.beans.ApplicationBean;
 import si.fri.prpo.Group32v1.services.beans.ConsultationBean;
 import si.fri.prpo.Group32v1.services.beans.ProfessorBean;
@@ -43,7 +44,9 @@ public class ConsultationControllerBean {
         log.info("Bean destroyed: " + ApplicationControllerBean.class.getSimpleName() + " UUID: " + uid);
     }
 
+
     @CallLogger
+    @ValidateConsultationDto
     @Transactional
     public Consultation createConsultation(ConsultationDto consultationDto) {
         Professor prof = professorBean.getProfessorById(consultationDto.getProfessorId());
@@ -65,6 +68,7 @@ public class ConsultationControllerBean {
         return cons;
     }
 
+    @ValidateConsultationDto
     @CallLogger
     @Transactional
     public boolean createConsultationsFromTo(ConsultationDto consultationDto, int consLengthMinutes) {

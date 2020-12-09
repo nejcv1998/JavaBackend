@@ -1,5 +1,7 @@
 package si.fri.prpo.Group32v1.services.beans;
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.rest.utils.JPAUtils;
 import si.fri.prpo.Group32v1.entities.Student;
 import si.fri.prpo.Group32v1.services.annotations.CallLogger;
 
@@ -41,6 +43,16 @@ public class StudentBean {
     public List<Student> getStudents() {
         List<Student> students = em.createNamedQuery("Student.getAll").getResultList();
         return students;
+    }
+
+    @CallLogger
+    public List<Student> getStudents(QueryParameters query) {
+        return JPAUtils.queryEntities(em, Student.class, query);
+    }
+
+    @CallLogger
+    public Long getStudentsCount(QueryParameters query) {
+        return JPAUtils.queryEntitiesCount(em, Student.class, query);
     }
 
     public List<Student> getStudentsCriteriaAPI() {

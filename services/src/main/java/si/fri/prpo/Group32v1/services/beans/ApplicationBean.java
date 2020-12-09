@@ -1,5 +1,7 @@
 package si.fri.prpo.Group32v1.services.beans;
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.rest.utils.JPAUtils;
 import si.fri.prpo.Group32v1.entities.Application;
 import si.fri.prpo.Group32v1.services.annotations.CallLogger;
 
@@ -12,6 +14,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
+import javax.ws.rs.GET;
+import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
@@ -40,6 +44,17 @@ public class ApplicationBean {
     public List<Application> getApplications() {
         List<Application> apps = em.createNamedQuery("Application.getAll").getResultList();
         return apps;
+    }
+
+
+    @CallLogger
+    public List<Application> getApplications(QueryParameters query) {
+        return JPAUtils.queryEntities(em, Application.class, query);
+    }
+
+    @CallLogger
+    public Long getApplicationsCount(QueryParameters query) {
+        return JPAUtils.queryEntitiesCount(em, Application.class, query);
     }
 
     public List<Application> getApplicationsCriteriaAPI() {
