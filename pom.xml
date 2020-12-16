@@ -61,6 +61,12 @@
             </dependency>
 
             <dependency>
+                <groupId>com.kumuluz.ee</groupId>
+                <artifactId>kumuluzee-jax-rs</artifactId>
+                <version>3.11.0</version>
+            </dependency>
+
+            <dependency>
                 <groupId>si.fri.prpo.Group32v1</groupId>
                 <artifactId>api</artifactId>
                 <version>${project.version}</version>

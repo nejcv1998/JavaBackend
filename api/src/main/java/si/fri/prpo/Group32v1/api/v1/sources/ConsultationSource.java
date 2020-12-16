@@ -7,11 +7,13 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
+import si.fri.prpo.Group32v1.entities.Channel;
 import si.fri.prpo.Group32v1.entities.Consultation;
 import si.fri.prpo.Group32v1.services.beans.ConsultationBean;
 import si.fri.prpo.Group32v1.services.controllers.ConsultationControllerBean;
 import si.fri.prpo.Group32v1.services.dtos.ConsultationDto;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -20,6 +22,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import java.util.List;
 
 @Path("consultations")
 @Produces(MediaType.APPLICATION_JSON)
@@ -128,5 +131,15 @@ public class ConsultationSource {
     @Path("{id}")
     public Response removeConsultation(@PathParam("id") Integer id) {
         return Response.status(Response.Status.OK).entity(consultationBean.removeConsultation(id)).build();
+    }
+
+    @GET
+    @Path("channels")
+    public Response getChannels() {
+        List<Channel> ch = consultationBean.getChannels();
+
+        return Response
+                .ok(ch)
+                .build();
     }
 }

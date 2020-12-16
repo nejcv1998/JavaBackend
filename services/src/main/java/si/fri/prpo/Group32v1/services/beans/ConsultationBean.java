@@ -1,9 +1,11 @@
 package si.fri.prpo.Group32v1.services.beans;
 
 
+import com.kumuluz.ee.configuration.utils.ConfigurationUtil;
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
 import si.fri.prpo.Group32v1.entities.Application;
+import si.fri.prpo.Group32v1.entities.Channel;
 import si.fri.prpo.Group32v1.entities.Consultation;
 import si.fri.prpo.Group32v1.services.annotations.CallLogger;
 
@@ -16,6 +18,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.GenericType;
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
@@ -27,9 +32,15 @@ public class ConsultationBean {
 
     private Logger log = Logger.getLogger(ConsultationBean.class.getName());
 
+    private Client httpClient;
+    private String baseUrl;
+
     @PostConstruct
     private void init() {
         log.info("Bean initialized: " + ConsultationBean.class.getSimpleName() + " UUID: " + uid);
+
+        httpClient = ClientBuilder.newClient();
+        baseUrl = ConfigurationUtil.getInstance().get("integrations.channels.url").orElse("http://localhost:8081/v1/communication");
     }
 
     @PreDestroy
@@ -103,5 +114,10 @@ public class ConsultationBean {
             return true;
         }
         return false;
+    }
+
+    @CallLogger
+    public List<Channel> getChannels() {
+        return httpClient.target(baseUrl).request().get(new GenericType<List<Channel>>(){});
     }
 }

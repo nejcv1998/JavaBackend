@@ -8,3 +8,6 @@ kumuluzee:
         connection-url: jdbc:postgresql://localhost:5432/consultations2
         username: postgres
         password: postgres
+integrations:
+  channels:
+    base-url: http://localhost:8081/v1/communication
