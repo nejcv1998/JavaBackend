@@ -1,6 +1,8 @@
 package si.fri.prpo.Group32v1.api.v1.sources;
 
+import com.kumuluz.ee.cors.annotations.CrossOrigin;
 import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.security.annotations.Secure;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -10,6 +12,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import si.fri.prpo.Group32v1.entities.Student;
 import si.fri.prpo.Group32v1.services.beans.StudentBean;
 
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -18,12 +21,13 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-import java.util.List;
 
 @ApplicationScoped
 @Path("students")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@CrossOrigin(supportedMethods = "POST, GET, HEAD, DELETE, OPTIONS")
+//@Secure
 public class StudentSource {
 
     @Context
@@ -38,8 +42,8 @@ public class StudentSource {
                     description = "Students fetched successfully"
             )
     })
-    @RolesAllowed("admin")
     @GET
+    //@PermitAll
     public Response getStudents() {
         QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
         Long studentsCount = studentBean.getStudentsCount(query);
@@ -59,9 +63,9 @@ public class StudentSource {
                     description = "Validation error"
             )
     })
-    @RolesAllowed("admin")
     @GET
     @Path("{id}")
+    //@RolesAllowed("user")
     public Response getStudentById(@PathParam("id") Integer id) {
         Student student = studentBean.getStudentById(id);
 
@@ -81,8 +85,8 @@ public class StudentSource {
                     description = "Validation error"
             )
     })
-    @RolesAllowed("admin")
     @POST
+    //@RolesAllowed("user")
     public Response addStudent(@RequestBody(
             description = "DTO object for Student creation.",
             required = true,
@@ -102,9 +106,9 @@ public class StudentSource {
                     description = "Validation error"
             )
     })
-    @RolesAllowed("admin")
     @PUT
     @Path("{id}")
+    //@RolesAllowed("user")
     public Response updateStudent(@PathParam("id") Integer id, Student student) {
         return Response.status(Response.Status.OK).entity(studentBean.updateStudent(id, student)).build();
     }
@@ -118,7 +122,7 @@ public class StudentSource {
                     description = "Validation error"
             )
     })
-    @RolesAllowed("admin")
+    //@RolesAllowed("admin")
     @DELETE
     @Path("{id}")
     public Response removeStudent(@PathParam("id") Integer id) {

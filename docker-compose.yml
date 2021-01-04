@@ -1,0 +1,30 @@
+version: "3.9"
+services:
+  database:
+    image: postgres
+    container_name: consultations-db
+    env_file:
+      - db.env
+    volumes:
+      - database-data
+    ports:
+      - "5432:5432"
+    networks:
+      - consultations-network
+  api:
+    container_name: consultations-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/code
+    networks:
+      - consultations-network
+    depends_on:
+      - database
+networks:
+  consultations-network:
+    name: consultations-network
+    driver: bridge

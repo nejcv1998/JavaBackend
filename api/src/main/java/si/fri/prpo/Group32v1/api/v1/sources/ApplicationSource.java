@@ -1,5 +1,6 @@
 package si.fri.prpo.Group32v1.api.v1.sources;
 
+import com.kumuluz.ee.cors.annotations.CrossOrigin;
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
@@ -26,6 +27,7 @@ import javax.ws.rs.core.UriInfo;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @ApplicationScoped
+@CrossOrigin(supportedMethods = "GET, POST, HEAD, DELETE, OPTIONS")
 public class ApplicationSource {
 
     @Context
@@ -43,7 +45,7 @@ public class ApplicationSource {
                     description = "Applications fetched successfully"
             )
     })
-    @RolesAllowed("admin")
+    //@RolesAllowed("admin")
     @GET
     public Response getApplications() {
         QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
@@ -64,7 +66,7 @@ public class ApplicationSource {
                     description = "Validation error"
             )
     })
-    @RolesAllowed("admin")
+    //@RolesAllowed("admin")
     @GET
     @Path("{id}")
     public Response getApplicationById(@PathParam("id") Integer id) {
@@ -87,7 +89,7 @@ public class ApplicationSource {
                     description = "Validation error"
             )
     })
-    @RolesAllowed("admin")
+    //@RolesAllowed("admin")
     @POST
     public Response addApplication(@RequestBody(
             description = "DTO object for Application creation.",
@@ -124,7 +126,7 @@ public class ApplicationSource {
                     description = "Validation error"
             )
     })
-    @RolesAllowed("admin")
+    //@RolesAllowed("admin")
     @DELETE
     @Path("{id}")
     public Response removeApplication(@PathParam("id") Integer id) {

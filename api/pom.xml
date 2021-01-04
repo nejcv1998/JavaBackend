@@ -44,10 +44,34 @@
             <artifactId>kumuluzee-openapi-mp-ui</artifactId>
             <version>1.4.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.kumuluz.ee</groupId>
+            <artifactId>kumuluzee-cdi-weld</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.kumuluz.ee.security</groupId>
+            <artifactId>kumuluzee-security-keycloak</artifactId>
+            <version>1.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.keycloak</groupId>
+            <artifactId>keycloak-jetty94-adapter</artifactId>
+            <version>11.0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.kumuluz.ee.health</groupId>
+            <artifactId>kumuluzee-health</artifactId>
+            <version>2.3.1</version>
+        </dependency>
 
         <dependency>
             <groupId>si.fri.prpo.Group32v1</groupId>
             <artifactId>services</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.kumuluz.ee.cors</groupId>
+            <artifactId>kumuluzee-cors</artifactId>
+            <version>1.0.6</version>
         </dependency>
     </dependencies>
 

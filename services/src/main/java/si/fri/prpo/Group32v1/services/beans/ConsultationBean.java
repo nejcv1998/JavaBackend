@@ -4,7 +4,6 @@ package si.fri.prpo.Group32v1.services.beans;
 import com.kumuluz.ee.configuration.utils.ConfigurationUtil;
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
-import si.fri.prpo.Group32v1.entities.Application;
 import si.fri.prpo.Group32v1.entities.Channel;
 import si.fri.prpo.Group32v1.entities.Consultation;
 import si.fri.prpo.Group32v1.services.annotations.CallLogger;

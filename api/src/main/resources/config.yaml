@@ -3,11 +3,27 @@ kumuluzee:
   version: 0.6
   env:
     name: dev
+  security:
+    keycloak:
+      realm: "consultation-realm"
+      bearer-only: true
+      auth-server-url: "http://localhost:8082/auth/"
+      ssl-required: "external"
+      resource: "consultation-api"
+      confidential-port: 0
   datasources:
       - jndi-name: jdbc/ConsultationsDS
         connection-url: jdbc:postgresql://localhost:5432/consultations2
         username: postgres
         password: postgres
+  health:
+    checks:
+      data-source-health-check:
+        type: liveness
+        jndi-name: jdbc/ConsultationsDS
+      http-health-check:
+        type: livenes
+        connection-url: http://localhost:8081/v1/communication
 integrations:
   channels:
     base-url: http://localhost:8081/v1/communication
